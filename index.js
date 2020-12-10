@@ -1,13 +1,16 @@
+require('dotenv').config()
 const express = require('express');
 const bp = require('body-parser');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/test-app', {useNewUrlParser: true, useUnifiedTopology: true});
+const router = require('./routes');
+mongoose.connect(`${process.env.DB_HOST}/${process.env.DB_USER}`, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex : true});
 
 
 
 
 let app = express();
 app.use(bp.json());
+app.use('/api', router);
 
 
 
